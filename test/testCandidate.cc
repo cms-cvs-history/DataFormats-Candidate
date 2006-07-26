@@ -1,4 +1,4 @@
-// $Id: testCandidate.cc,v 1.1 2006/02/28 10:43:30 llista Exp $
+// $Id: testCandidate.cpp,v 1.1 2006/06/20 14:54:25 llista Exp $
 #include <cppunit/extensions/HelperMacros.h>
 #include "DataFormats/Candidate/interface/LeafCandidate.h"
 #include "DataFormats/Candidate/interface/Candidate.h"
