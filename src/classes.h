@@ -7,6 +7,7 @@
 #include "DataFormats/Common/interface/Wrapper.h"
 #include "DataFormats/Common/interface/RefToBase.h"
 #include "DataFormats/Common/interface/AssociationVector.h"
+#include "DataFormats/Candidate/interface/CandMatchMap.h"
 
 namespace {
   namespace {
@@ -27,5 +28,9 @@ namespace {
     edm::Wrapper<edm::AssociationVector<reco::CandidateCollection, std::vector<float> > > wav2;
     edm::AssociationVector<reco::CandidateCollection, std::vector<int> > av3;
     edm::Wrapper<edm::AssociationVector<reco::CandidateCollection, std::vector<int> > > wav3;
+    edm::helpers::KeyVal<reco::CandidateRef,reco::CandidateRef> kv1;
+    reco::CandMatchMap cmm1;
+    edm::Wrapper<reco::CandMatchMap> wcmm1;
+    edm::helpers::KeyVal<edm::RefProd<edm::OwnVector<reco::Candidate,edm::ClonePolicy<reco::Candidate> > > ,edm::RefProd<edm::OwnVector<reco::Candidate,edm::ClonePolicy<reco::Candidate> > > > kv2;
   }
 }
