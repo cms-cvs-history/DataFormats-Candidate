@@ -31,8 +31,5 @@ bool CompositeCandidate::overlap( const Candidate & c2 ) const {
 }
 
 void CompositeCandidate::fixup() const {
-  size_t n = numberOfDaughters();
-  for( size_t i = 0; i < n; ++ i ) {
-    daughter( i )->addMother( this );
-  }
+  addMothersFromDaughterLinks();
 }

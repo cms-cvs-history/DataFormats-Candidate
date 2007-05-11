@@ -1,7 +1,6 @@
 #ifndef Candidate_CompositeCandidate_H
 #define Candidate_CompositeCandidate_H
 #include "DataFormats/Candidate/interface/Candidate.h"
-#include <memory>
 /** \class reco::CompositeCandidate
  *
  * A Candidate composed of daughters. 
@@ -9,7 +8,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: CompositeCandidate.h,v 1.13 2007/03/05 08:56:51 llista Exp $
+ * \version $Id: CompositeCandidate.h,v 1.10 2007/02/19 12:59:04 llista Exp $
  *
  */
 
@@ -21,14 +20,12 @@ namespace reco {
     typedef CandidateCollection daughters;
     /// default constructor
     CompositeCandidate() : Candidate() { }
+    /// default constructor
+    CompositeCandidate( const Particle & p ) : Candidate( p ) { }
     /// constructor from values
-    CompositeCandidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-			int pdgId = 0, int status = 0, bool integerCharge = true ) :
-      Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
-     /// constructor from values
-    CompositeCandidate( const Particle & p ) :
-      Candidate( p ) { }
-   /// destructor
+    CompositeCandidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ) ) :
+      Candidate( q, p4, vtx ) { }
+    /// destructor
     virtual ~CompositeCandidate();
     /// returns a clone of the candidate
     virtual CompositeCandidate * clone() const;
@@ -48,8 +45,6 @@ namespace reco {
     virtual Candidate * daughter( size_type );
     /// add a clone of the passed candidate as daughter 
     void addDaughter( const Candidate & );
-    /// add a clone of the passed candidate as daughter 
-    void addDaughter( std::auto_ptr<Candidate> );
     /// implementation of const_iterator. 
     /// should be private; declared public only 
     /// for ROOT reflex dictionay problems    
@@ -117,11 +112,6 @@ namespace reco {
     Candidate * c = cand.clone();
     dau.push_back( c ); 
   }
-
-  inline void CompositeCandidate::addDaughter( std::auto_ptr<Candidate> cand ) {
-    dau.push_back( cand );
-  }
-
 }
 
 #endif

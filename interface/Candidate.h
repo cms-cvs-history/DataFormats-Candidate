@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.24 2007/03/05 08:56:51 llista Exp $
+ * \version $Id: Candidate.h,v 1.21 2007/02/23 15:50:01 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -30,9 +30,8 @@ namespace reco {
     /// constructor from a Particle
     explicit Candidate( const Particle & p ) : Particle( p ) { }
     /// constructor from values
-    Candidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-	       int pdgId = 0, int status = 0, bool integerCharge = true ) : 
-      Particle( q, p4, vtx, pdgId, status, integerCharge ) { }
+    Candidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ) ) : 
+      Particle( q, p4, vtx ) { }
     /// destructor
     virtual ~Candidate();
     /// returns a clone of the Candidate object
@@ -63,6 +62,8 @@ namespace reco {
     /// returns reference to master clone, if existing.
     /// Throws an exception unless the concrete Candidate type is ShallowCloneCandidate
     virtual const CandidateBaseRef & masterClone() const;
+    /// PDG identifier
+    virtual int pdgId() const { return 0; }
     /// get a component
     template<typename T> T get() const { 
       if ( hasMasterClone() ) return masterClone()->get<T>();
@@ -92,11 +93,6 @@ namespace reco {
     template<typename T, typename Tag> size_t numberOf() const { 
       if ( hasMasterClone() ) return masterClone()->numberOf<T, Tag>();
       else return reco::numberOf<T, Tag>( * this ); 
-    }
-
-    /// add a new mother pointer
-    void addMother( const Candidate * mother ) const {
-      mothers_.push_back( mother );
     }
 
   protected:
@@ -132,6 +128,9 @@ namespace reco {
       virtual Candidate & deref() const = 0;
       virtual difference_type difference( const iterator_imp * ) const = 0;
     };
+
+    /// set mother pointers from daughters
+    void addMothersFromDaughterLinks() const;
 
   public:
     /// const_iterator over daughters
@@ -216,6 +215,10 @@ namespace reco {
     friend class ShallowCloneCandidate;
     /// mother link
     mutable std::vector<const Candidate *> mothers_;
+    /// set mother pointer
+    void addMother( const Candidate * mother ) const {
+      mothers_.push_back( mother );
+    }
     /// post-read fixup
     virtual void fixup() const = 0;
     /// declare friend class

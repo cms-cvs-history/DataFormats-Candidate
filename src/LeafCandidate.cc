@@ -33,4 +33,3 @@ Candidate * LeafCandidate::daughter( size_type ) {
 
 void LeafCandidate::fixup() const {
 }
-

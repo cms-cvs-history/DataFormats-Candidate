@@ -14,3 +14,9 @@ const CandidateBaseRef & Candidate::masterClone() const {
 bool Candidate::hasMasterClone() const { 
   return false;
 }
+
+void Candidate::addMothersFromDaughterLinks() const {
+  for( size_t i = 0; i < numberOfDaughters(); ++ i ) {
+    daughter( i )->addMother( this );
+  }
+}
