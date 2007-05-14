@@ -9,7 +9,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: CompositeRefCandidate.h,v 1.8 2007/02/19 12:59:04 llista Exp $
+ * \version $Id: CompositeRefCandidate.h,v 1.11.2.1 2007/05/11 10:57:14 llista Exp $
  *
  */
 
@@ -21,6 +21,8 @@ namespace reco {
     typedef CandidateRefVector daughters;
     /// default constructor
     CompositeRefCandidate() : Candidate() { }
+    /// constructor from a particle
+    CompositeRefCandidate( const Particle & p ) : Candidate( p ) { }
     /// constructor from values
     CompositeRefCandidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ) ) :
       Candidate( q, p4, vtx ) { }
@@ -43,7 +45,9 @@ namespace reco {
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1
     virtual Candidate * daughter( size_type );
     /// add a daughter via a reference
-    void addDaughter( const CandidateRef & );    
+    void addDaughter( const CandidateRef & );  
+    /// clear daughter references
+    void clearDaughters() { dau.clear(); }
     /// reference to daughter at given position
     CandidateRef daughterRef( size_type i ) const { return dau[ i ]; }
     /// implementation of const_iterator. 
