@@ -79,14 +79,6 @@
   <class name="edm::Wrapper<reco::CandMatchMapMany>" /> 
   <class pattern="edm::AssociationMap<*>::const_iterator" />
   <class pattern="edm::Wrapper<edm::AssociationVector<*>"/>
-
-  <class name="reco::CompositeCandidateCollection" />
-  <class name="edm::Wrapper<reco::CompositeCandidateCollection>" />
-  <class name="edm::reftobase::Holder<reco::Candidate, reco::CompositeCandidateRef>" />
-  <class name="edm::reftobase::RefHolder<reco::CompositeCandidateRef>" />
-  <class name="edm::reftobase::VectorHolder<reco::Candidate, reco::CompositeCandidateRefVector>" />
-  <class name="edm::reftobase::RefVectorHolder<reco::CompositeCandidateRefVector>" />
-
 </selection>
 <exclusion>
   <class name="edm::OwnVector<reco::Candidate, edm::ClonePolicy<reco::Candidate> >">
