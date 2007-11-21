@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: LeafCandidate.h,v 1.15 2007/10/15 11:51:25 llista Exp $
+ * \version $Id: LeafCandidate.h,v 1.11 2007/05/14 12:09:47 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Candidate.h"
@@ -26,10 +26,6 @@ namespace reco {
     LeafCandidate( Charge q, const LorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
 		   int pdgId = 0, int status = 0, bool integerCharge = true ) : 
       Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
-    /// constructor from values
-    LeafCandidate( Charge q, const PolarLorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-		   int pdgId = 0, int status = 0, bool integerCharge = true ) : 
-      Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// destructor
     virtual ~LeafCandidate();
     /// returns a clone of the Candidate object
@@ -46,10 +42,6 @@ namespace reco {
     virtual size_t numberOfDaughters() const;
     /// return daughter at a given position (throws an exception)
     virtual const Candidate * daughter( size_type ) const;
-    /// number of mothers
-    virtual size_t numberOfMothers() const;
-    /// return mother at a given position (throws an exception)
-    virtual const Candidate * mother( size_type ) const;
     /// return daughter at a given position (throws an exception)
     virtual Candidate * daughter( size_type );
 
@@ -60,6 +52,8 @@ namespace reco {
     typedef candidate::iterator_imp_specific<daughters> iterator_imp_specific;
     /// check overlap with another Candidate
     virtual bool overlap( const Candidate & c ) const;
+    /// post-read fixup operation
+    virtual void fixup() const;
   };
 
 }

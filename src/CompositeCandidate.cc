@@ -1,4 +1,4 @@
-// $Id: CompositeCandidate.cc,v 1.6 2007/09/14 09:53:43 llista Exp $
+// $Id: CompositeCandidate.cc,v 1.4 2007/02/19 12:59:05 llista Exp $
 #include "DataFormats/Candidate/interface/CompositeCandidate.h"
 #include "FWCore/Utilities/interface/Exception.h"
 
@@ -21,18 +21,18 @@ const Candidate * CompositeCandidate::daughter( size_type i ) const {
 }
 
 Candidate * CompositeCandidate::daughter( size_type i ) { 
-  Candidate * d = ( i >= 0 && i < numberOfDaughters() ) ? & dau[ i ] : 0;
-  return d;
-}
-
-const Candidate * CompositeCandidate::mother( size_type i ) const { 
-  return 0;
+  return ( i >= 0 && i < numberOfDaughters() ) ? & dau[ i ] : 0;
 }
 
 size_t CompositeCandidate::numberOfDaughters() const { return dau.size(); }
 
-size_t CompositeCandidate::numberOfMothers() const { return 0; }
-
 bool CompositeCandidate::overlap( const Candidate & c2 ) const {
   throw cms::Exception( "Error" ) << "can't check overlap internally for CompositeCanddate";
+}
+
+void CompositeCandidate::fixup() const {
+  size_t n = numberOfDaughters();
+  for( size_t i = 0; i < n; ++ i ) {
+    daughter( i )->addMother( this );
+  }
 }
