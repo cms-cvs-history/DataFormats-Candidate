@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.29 2007/06/13 16:31:37 llista Exp $
+ * \version $Id: Candidate.h,v 1.29.2.1 2007/11/23 14:14:57 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -16,6 +16,8 @@
 #include "DataFormats/Candidate/interface/CandidateFwd.h"
 #include "DataFormats/Math/interface/Error.h"
 #include "boost/iterator/filter_iterator.hpp"
+
+class OverlapChecker;
 
 namespace reco {
   
@@ -146,7 +148,7 @@ namespace reco {
     /// check overlap with another Candidate
     virtual bool overlap( const Candidate & ) const = 0;
     template<typename, typename> friend struct component; 
-    friend class OverlapChecker;
+    friend class ::OverlapChecker;
     friend class ShallowCloneCandidate;
     /// mother link
     mutable std::vector<const Candidate *> mothers_;
