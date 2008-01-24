@@ -7,14 +7,13 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: VertexCompositeCandidate.h,v 1.1 2007/11/21 10:59:38 llista Exp $
+ * \version $Id: VertexCompositeCandidate.h,v 1.4 2007/12/10 12:16:40 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/VertexCompositeCandidateFwd.h"
 #include "DataFormats/Candidate/interface/CompositeCandidate.h"
 
 namespace reco {
-
   class VertexCompositeCandidate : public CompositeCandidate {
   public:
     VertexCompositeCandidate() : CompositeCandidate() { }
@@ -27,11 +26,14 @@ namespace reco {
     VertexCompositeCandidate(Charge q, const LorentzVector & p4, const Point & vtx,
 			     const CovarianceMatrix & err, double chi2, double ndof,
 			     int pdgId = 0, int status = 0, bool integerCharge = true);
-     /// constructor from values
-    VertexCompositeCandidate(const Particle & p) :
+    /// constructor from values
+    explicit VertexCompositeCandidate(const Particle & p) :
       CompositeCandidate(p), chi2_(0), ndof_(0) { }
      /// constructor from values
-    VertexCompositeCandidate(const CompositeCandidate & p) :
+    explicit VertexCompositeCandidate(const Candidate & p) :
+      CompositeCandidate(p), chi2_(0), ndof_(0) { }
+     /// constructor from values
+    explicit VertexCompositeCandidate(const CompositeCandidate & p) :
       CompositeCandidate(p), chi2_(0), ndof_(0) { }
     /// destructor
     virtual ~VertexCompositeCandidate();
@@ -61,6 +63,16 @@ namespace reco {
     /// set covariance matrix
     void setCovariance(const CovarianceMatrix &m);
 
+    /// long lived flag
+    static const unsigned int longLivedTag;
+
+    void setLongLived() {
+      status_ &= longLivedTag;
+    }
+
+    bool longLived() const {
+      return status_ & longLivedTag;
+    }
   private:
     /// chi-sqared
     Double32_t chi2_;
