@@ -7,7 +7,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Particle.h,v 1.25.2.1 2007/11/23 14:14:57 llista Exp $
+ * \version $Id: Particle.h,v 1.25.2.2 2007/11/26 10:10:29 llista Exp $
  *
  */
 #include "DataFormats/Math/interface/Point3D.h"
@@ -119,6 +119,12 @@ namespace reco {
     int status() const { return status_; }
     /// set status word
     void setStatus( int status ) { status_ = status; }
+    /// long lived flag
+    static const unsigned int longLivedTag;
+    /// set long lived flag
+    void setLongLived() { status_ |= longLivedTag; }
+    /// is long lived?
+    bool longLived() const { return status_ & longLivedTag; }
 
   protected:
     /// electric charge
