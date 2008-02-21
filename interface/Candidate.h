@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.29.2.1 2007/11/23 14:14:57 llista Exp $
+ * \version $Id: Candidate.h,v 1.29.2.2 2008/01/21 10:39:14 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -66,7 +66,7 @@ namespace reco {
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1
     virtual Candidate * daughter( size_type i ) = 0;
     /// number of mothers (zero or one in most of but not all the cases)
-    unsigned int numberOfMothers() const { return mothers_.size(); }
+    virtual unsigned int numberOfMothers() const;
     /// return pointer to mother
     const Candidate * mother( size_type i = 0 ) const { 
       return i < numberOfMothers() ? mothers_[ i ] : 0; 
