@@ -8,8 +8,7 @@
     <field name="mothers_" transient="true"/>
   </class>
   <class name="reco::LeafCandidate" />
-  <class name="reco::CompositeCandidate"/>  
-  <class name="reco::VertexCompositeCandidate"/>
+  <class name="reco::CompositeCandidate"/>
   <class name="reco::CompositeRefCandidate" />
   <class name="reco::CompositePtrCandidate" />
   <class name="reco::CompositeRefBaseCandidate" />
@@ -71,13 +70,11 @@
 
   <class name="std::vector<reco::Particle>" />
   <class name="std::vector<reco::Candidate *>" />
-  <class name="std::vector<reco::LeafCandidate>" />
   <class name="reco::CandidateCollection" />
   <class name="reco::CandidateBaseRef" />
 
   <class name="edm::Wrapper<reco::CandidateCollection>" />
   <class name="edm::Wrapper<std::vector<reco::Particle> >" />
-  <class name="edm::Wrapper<std::vector<reco::LeafCandidate> >" />
   <class name="edm::Wrapper<reco::CandidateRefVector>"/>
   <class name="edm::Wrapper<reco::CandidateBaseRefVector>" />
   <class name="edm::Wrapper<reco::CandMatchMap>" />
