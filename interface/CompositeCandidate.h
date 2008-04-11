@@ -1,5 +1,5 @@
-#ifndef Candidate_CompositeCandidate_h
-#define Candidate_CompositeCandidate_h
+#ifndef Candidate_CompositeCandidate_H
+#define Candidate_CompositeCandidate_H
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include <memory>
 /** \class reco::CompositeCandidate
@@ -9,7 +9,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: CompositeCandidate.h,v 1.25 2007/11/30 14:03:26 llista Exp $
+ * \version $Id: CompositeCandidate.h,v 1.16.2.1 2007/11/23 14:14:57 llista Exp $
  *
  */
 
@@ -29,14 +29,10 @@ namespace reco {
 			int pdgId = 0, int status = 0, bool integerCharge = true ) :
       Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// constructor from values
-    CompositeCandidate( Charge q, const PolarLorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-			int pdgId = 0, int status = 0, bool integerCharge = true ) :
-      Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
-    /// constructor from values
-    explicit CompositeCandidate( const Particle & p ) :
+    CompositeCandidate( const Particle & p ) :
       Candidate( p ) { }
     /// constructor from values
-    explicit CompositeCandidate( const Candidate & p );
+    CompositeCandidate( const Candidate & p );
     /// destructor
     virtual ~CompositeCandidate();
     /// returns a clone of the candidate
@@ -50,7 +46,7 @@ namespace reco {
     /// last daughter const_iterator
     virtual iterator end();
     /// number of daughters
-    virtual size_type numberOfDaughters() const;
+    virtual size_t numberOfDaughters() const;
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1 (read only mode)
     virtual const Candidate * daughter( size_type ) const;
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1
@@ -61,11 +57,6 @@ namespace reco {
     void addDaughter( std::auto_ptr<Candidate> );
     /// clear daughters
     void clearDaughters() { dau.clear(); }
-    /// number of mothers (zero or one in most of but not all the cases)
-    virtual size_type numberOfMothers() const;
-    /// return pointer to mother
-    virtual const Candidate * mother( size_type i = 0 ) const;
-
   private:
     // const iterator implementation
     typedef candidate::const_iterator_imp_specific<daughters> const_iterator_imp_specific;
@@ -75,6 +66,8 @@ namespace reco {
     daughters dau;
     /// check overlap with another daughter
     virtual bool overlap( const Candidate & ) const;
+    /// post-read fixup
+    virtual void fixup() const;
   };
 
   inline void CompositeCandidate::addDaughter( const Candidate & cand ) { 

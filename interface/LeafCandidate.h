@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: LeafCandidate.h,v 1.15 2007/10/15 11:51:25 llista Exp $
+ * \version $Id: LeafCandidate.h,v 1.12 2007/06/12 21:27:21 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Candidate.h"
@@ -28,7 +28,7 @@ namespace reco {
       Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// constructor from values
     LeafCandidate( Charge q, const PolarLorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-		   int pdgId = 0, int status = 0, bool integerCharge = true ) : 
+		   int pdgId = 0, int status = 0, bool integerCharge = true ) :
       Candidate( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// destructor
     virtual ~LeafCandidate();
@@ -46,10 +46,6 @@ namespace reco {
     virtual size_t numberOfDaughters() const;
     /// return daughter at a given position (throws an exception)
     virtual const Candidate * daughter( size_type ) const;
-    /// number of mothers
-    virtual size_t numberOfMothers() const;
-    /// return mother at a given position (throws an exception)
-    virtual const Candidate * mother( size_type ) const;
     /// return daughter at a given position (throws an exception)
     virtual Candidate * daughter( size_type );
 
@@ -60,6 +56,8 @@ namespace reco {
     typedef candidate::iterator_imp_specific<daughters> iterator_imp_specific;
     /// check overlap with another Candidate
     virtual bool overlap( const Candidate & c ) const;
+    /// post-read fixup operation
+    virtual void fixup() const;
   };
 
 }

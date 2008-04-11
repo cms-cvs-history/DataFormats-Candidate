@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.40 2007/10/29 10:22:10 llista Exp $
+ * \version $Id: Candidate.h,v 1.29.2.2 2008/01/21 10:39:14 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -45,7 +45,7 @@ namespace reco {
       Particle( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// constructor from values
     Candidate( Charge q, const PolarLorentzVector & p4, const Point & vtx = Point( 0, 0, 0 ),
-	       int pdgId = 0, int status = 0, bool integerCharge = true ) : 
+	       int pdgId = 0, int status = 0, bool integerCharge = true ) :
       Particle( q, p4, vtx, pdgId, status, integerCharge ) { }
     /// destructor
     virtual ~Candidate();
@@ -66,13 +66,15 @@ namespace reco {
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1
     virtual Candidate * daughter( size_type i ) = 0;
     /// number of mothers (zero or one in most of but not all the cases)
-    virtual size_type numberOfMothers() const = 0;
+    virtual unsigned int numberOfMothers() const;
     /// return pointer to mother
-    virtual const Candidate * mother( size_type i = 0 ) const = 0;
+    const Candidate * mother( size_type i = 0 ) const { 
+      return i < numberOfMothers() ? mothers_[ i ] : 0; 
+    }
     /// chi-squares
     virtual double vertexChi2() const;
     /** Number of degrees of freedom
-     *  Meant to be Double32_t for soft-assignment fitters: 
+     *  Meant to be Double32_t for soft-assignment fitters:
      *  tracks may contribute to the vertex with fractional weights.
      *  The ndof is then = to the sum of the track weights.
      *  see e.g. CMS NOTE-2006/032, CMS NOTE-2004/002
@@ -125,8 +127,11 @@ namespace reco {
       if ( hasMasterClone() ) return masterClone()->numberOf<T, Tag>();
       else return reco::numberOf<T, Tag>( * this ); 
     }
-
-    template<typename S> 
+    /// add a new mother pointer
+    void addMother( const Candidate * mother ) const {
+      mothers_.push_back( mother );
+    }
+    template<typename S>
     struct daughter_iterator {
       typedef boost::filter_iterator<S, const_iterator> type;
     };
@@ -139,13 +144,18 @@ namespace reco {
     typename daughter_iterator<S>::type endFilter( const S & s ) const {
       return boost::make_filter_iterator(s, end(), end());
     }
-
   private:
     /// check overlap with another Candidate
     virtual bool overlap( const Candidate & ) const = 0;
-    template<typename, typename, typename> friend struct component; 
+    template<typename, typename> friend struct component; 
     friend class ::OverlapChecker;
     friend class ShallowCloneCandidate;
+    /// mother link
+    mutable std::vector<const Candidate *> mothers_;
+    /// post-read fixup
+    virtual void fixup() const { };
+    /// declare friend class
+    friend class edm::helpers::PostReadFixup;
   };
 
 }

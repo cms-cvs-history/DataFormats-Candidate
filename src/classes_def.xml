@@ -1,21 +1,19 @@
 <lcgdict>
 <selection>
   <class name="reco::Particle">
+    <field name="p4_" iotype="ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<Double32_t> >" />
     <field name="vertex_" iotype="ROOT::Math::PositionVector3D<ROOT::Math::Cartesian3D<Double32_t> >" />
-    <field name="p4Polar_" transient="true" />
-    <field name="p4Cartesian_" transient="true" />
   </class>
   <class name="reco::Candidate">
     <field name="mothers_" transient="true"/>
   </class>
   <class name="reco::LeafCandidate" />
-  <class name="reco::CompositeCandidate"/>
+  <class name="reco::CompositeCandidate"/>  
   <class name="reco::VertexCompositeCandidate"/>
   <class name="reco::CompositeRefCandidate" />
   <class name="reco::CompositePtrCandidate" />
   <class name="reco::CompositeRefBaseCandidate" />
   <class name="reco::ShallowCloneCandidate" />
-  <class name="reco::NamedCompositeCandidate"/>  
   <class name="reco::candidate::iterator" />
   <class name="reco::candidate::const_iterator" />
   <class name="reco::candidate::const_iterator_imp" />
@@ -104,14 +102,6 @@
   <class name="edm::reftobase::RefHolder<reco::VertexCompositeCandidateRef>" />
   <class name="edm::reftobase::VectorHolder<reco::Candidate, reco::VertexCompositeCandidateRefVector>" />
   <class name="edm::reftobase::RefVectorHolder<reco::VertexCompositeCandidateRefVector>" />
-
-  <class name="reco::NamedCompositeCandidateCollection" />
-  <class name="edm::Wrapper<reco::NamedCompositeCandidateCollection>" />
-  <class name="edm::reftobase::Holder<reco::Candidate, reco::NamedCompositeCandidateRef>" />
-  <class name="edm::reftobase::RefHolder<reco::NamedCompositeCandidateRef>" />
-  <class name="edm::reftobase::VectorHolder<reco::Candidate, reco::NamedCompositeCandidateRefVector>" />
-  <class name="edm::reftobase::RefVectorHolder<reco::NamedCompositeCandidateRefVector>" />
-
 
   <class pattern="std::iterator<std::random_access_iterator_tag,edm::RefToBase<reco::Candidate>*>" />
 </selection>
