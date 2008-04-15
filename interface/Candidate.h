@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.29.2.2 2008/01/21 10:39:14 llista Exp $
+ * \version $Id: Candidate.h,v 1.29.2.3 2008/02/21 11:15:44 oiorio Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -68,7 +68,7 @@ namespace reco {
     /// number of mothers (zero or one in most of but not all the cases)
     virtual unsigned int numberOfMothers() const;
     /// return pointer to mother
-    const Candidate * mother( size_type i = 0 ) const { 
+    virtual const Candidate * mother( size_type i = 0 ) const { 
       return i < numberOfMothers() ? mothers_[ i ] : 0; 
     }
     /// chi-squares
