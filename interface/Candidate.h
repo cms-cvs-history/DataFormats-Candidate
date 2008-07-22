@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.43 2008/04/22 10:59:31 cbern Exp $
+ * \version $Id: Candidate.h,v 1.44 2008/05/08 15:29:35 srappocc Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -61,6 +61,10 @@ namespace reco {
     virtual iterator end() = 0;
     /// number of daughters
     virtual size_type numberOfDaughters() const = 0;
+    /// return daughter with role name s (read only mode)
+    virtual const Candidate * daughter( std::string s) const;
+    /// return daughter with role name s
+    virtual Candidate * daughter( std::string s );
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1 (read only mode)
     virtual const Candidate * daughter( size_type i ) const = 0;
     /// return daughter at a given position, i = 0, ... numberOfDaughters() - 1
