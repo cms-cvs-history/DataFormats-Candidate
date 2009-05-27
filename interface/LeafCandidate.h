@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: LeafCandidate.h,v 1.19 2008/12/16 01:32:04 hegner Exp $
+ * \version $Id: LeafCandidate.h,v 1.20 2009/03/28 19:52:21 hegner Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Candidate.h"
@@ -15,7 +15,7 @@
 
 namespace reco {
   
-  class LeafCandidate : public Candidate {
+  class LeafCandidate : virtual public Candidate {
   public:
     /// collection of daughter candidates                                                 
     typedef CandidateCollection daughters;
