@@ -6,7 +6,7 @@
  *
  * \author Luca Lista, INFN
  *
- * \version $Id: Candidate.h,v 1.45 2008/07/10 15:19:17 cbern Exp $
+ * \version $Id: Candidate.h,v 1.46 2008/07/22 06:07:44 llista Exp $
  *
  */
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -81,6 +81,17 @@ namespace reco {
     virtual CandidatePtr sourceCandidatePtr( size_type i ) const {
       return CandidatePtr();
     }
+    /// \brief Set the ptr to the source Candidate. 
+    /// 
+    /// necessary, to allow a parallel treatment of all candidates 
+    /// in PF2PAT. Does nothing for most Candidate classes, including 
+    /// CompositePtrCandidates, where the source information is in fact
+    /// the collection of ptrs to daughters. For non-Composite Candidates, 
+    /// this function can be used to set the ptr to the source of the 
+    /// Candidate, which will allow to keep track 
+    /// of the reconstruction history. 
+    virtual void setSourceCandidatePtr( const CandidatePtr& ptr ) {};
+
     /// chi-squares
     virtual double vertexChi2() const;
     /** Number of degrees of freedom
